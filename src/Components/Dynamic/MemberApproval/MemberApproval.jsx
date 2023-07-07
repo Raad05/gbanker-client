@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import AddedMemberDetails from "../AddedMemberDetails/AddedMemberDetails";
+import { useState } from "react";
 
 const MemberApproval = () => {
   const addedMemberDetails = [
@@ -51,7 +52,7 @@ const MemberApproval = () => {
       name: "Sarah Davis",
       joiningDate: "2023-04-18",
       status: "Active",
-      approved: "Pending",
+      approved: "Yes",
     },
     {
       code: "PQR678",
@@ -71,7 +72,7 @@ const MemberApproval = () => {
       name: "Emily Thompson",
       joiningDate: "2023-02-07",
       status: "Active",
-      approved: "Pending",
+      approved: "Yes",
     },
     {
       code: "VWX234",
@@ -106,6 +107,17 @@ const MemberApproval = () => {
   ];
   let serial = 1;
 
+  const [updatedStatus, setUpdatedStatus] = useState(null);
+
+  const onStatusUpdate = (status) => {
+    setUpdatedStatus(status);
+  };
+
+  const onSave = (e) => {
+    e.preventDefault();
+    console.log(updatedStatus);
+  };
+
   return (
     <div className="Member-approval container m-auto overflow-x-auto">
       <div className="text-md my-5 bg-success p-2 text-white shadow-md">
@@ -121,7 +133,6 @@ const MemberApproval = () => {
         Member Approval
       </h3>
       <table className="table table-zebra">
-        {/* head */}
         <thead>
           <tr>
             <th className="bg-success text-white">SL</th>
@@ -140,11 +151,20 @@ const MemberApproval = () => {
             <AddedMemberDetails
               key={idx}
               detail={detail}
+              onStatusUpdate={onStatusUpdate}
               serial={serial++}
             ></AddedMemberDetails>
           ))}
         </tbody>
       </table>
+      <div className="my-10 flex justify-center">
+        <button
+          onClick={onSave}
+          className="bg-blue-400 p-2 rounded text-white "
+        >
+          Save Changes
+        </button>
+      </div>
     </div>
   );
 };
