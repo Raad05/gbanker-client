@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import baseaxios from '../../../Axios/baseaxios';
+import nodeaxios from '../../../Axios/nodeaxios';
 
 const MemberAddition = () => {
   const dropdownDetails = [
     {
       id: "01",
-      label: "Group",
+      label: "Branch",
       options: [
-        "0001",
-        "0002",
+        "Motijheel",
+        "Halishohor",
         "0003",
         "0004",
         "0005",
@@ -26,7 +28,7 @@ const MemberAddition = () => {
     {
       id: "03",
       label: "State",
-      options: ["Dhaka", "Rajshahi", "Barishal", "Comilla", "Sylhet"],
+      options: ["Dhaka", "Chittagong", "Rajshahi", "Barishal", "Comilla", "Sylhet"],
     },
     {
       id: "04",
@@ -50,6 +52,35 @@ const MemberAddition = () => {
 
   const save = (e) => {
     e.preventDefault();
+    const dataBlob = {
+      idempotencyKey: Date.now().toString(),
+      input: {
+        _areaName: data.area,
+        _branchName: data.branch,
+        _centerName: data.center,
+        _memberId: data.memberId,
+        _name: data.firstName + " " + data.lastName
+      },
+      key: "0xeb24f49a29341e12f650e8043237815efb67bc27"
+    };
+
+    baseaxios.post("/namespaces/default/apis/MFISystem_2/invoke/addMember",
+      dataBlob
+    ).then((response) => {
+      if (response) {
+        try {
+
+          nodeaxios.post("/member/createMember", data);
+          alert("Successfully created member");
+        } catch (err) {
+          console.log(err);
+          alert("Failed to create member");
+        }
+
+      }
+    })
+
+
     console.log(data);
   };
 

@@ -1,23 +1,56 @@
 /* eslint-disable react/prop-types */
+import baseaxios from '../../../Axios/baseaxios';
+import nodeaxios from '../../../Axios/nodeaxios';
+import { useEffect, useState } from 'react';
 const AddedMemberDetails = ({ detail, serial, onStatusUpdate }) => {
-  const { code, trxId, centre, group, name, joiningDate, status, approved } =
-    detail;
 
+
+  const { approved, area, branch, center, country, firstName, lastName, homeAddress, memberId } = detail;
   const updateApproval = () => {
-    onStatusUpdate("Approved");
+    const dataBlob = {
+      idempotencyKey: Date.now().toString(),
+      input: {
+        _memberId: memberId,
+      },
+      key: "0xab896ed5d059c256402d4f2d77850c58e5bd8d14"
+    };
+
+    baseaxios.post("/namespaces/default/apis/MFISystem_2/invoke/approveMember",
+      dataBlob
+    ).then((response) => {
+      if (response) {
+        try {
+
+          nodeaxios.post("/member/approveMember", {
+            memberId: memberId
+          }).then((response) => {
+            alert("Approved!");
+          }
+          );
+
+        } catch (err) {
+          console.log(err);
+          alert("Failed to create member");
+        }
+
+      }
+    })
   };
+  useEffect(() => {
+  }, []);
   return (
     <tr>
       <th>{serial}</th>
-      <td>{code}</td>
-      <td>{trxId}</td>
-      <td>{centre}</td>
-      <td>{group}</td>
-      <td>{name}</td>
-      <td>{joiningDate}</td>
-      <td>{status}</td>
+      <td>{firstName}</td>
+      <td>{lastName}</td>
+      <td>{memberId}</td>
+      <td>{homeAddress}</td>
+      <td>{branch}</td>
+      <td>{center}</td>
+      <td>{area}</td>
+      <td>{country}</td>
       <td>
-        {approved === "Yes" ? (
+        {approved === true ? (
           <p className="p-2">{approved}</p>
         ) : (
           <button
