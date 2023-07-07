@@ -1,7 +1,7 @@
 // eslint-disable-next-line react/prop-types
 const TextDetails = ({ detail }) => {
   return (
-    <div className="Text-details form-control">
+    <div className="form-control">
       <label className="label">
         <span className="label-text font-bold ml-1">
           {detail}

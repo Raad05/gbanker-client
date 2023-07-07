@@ -3,10 +3,8 @@ const AddedMemberDetails = ({ detail, serial, onStatusUpdate }) => {
   const { code, trxId, centre, group, name, joiningDate, status, approved } =
     detail;
 
-  const updateApproval = (e) => {
-    const form = e.target;
-    const updated = form.value;
-    onStatusUpdate(updated);
+  const updateApproval = () => {
+    onStatusUpdate("Approved");
   };
   return (
     <tr>
@@ -22,10 +20,12 @@ const AddedMemberDetails = ({ detail, serial, onStatusUpdate }) => {
         {approved === "Yes" ? (
           <p className="p-2">{approved}</p>
         ) : (
-          <select onChange={updateApproval} className="p-2" name="Approval">
-            <option value={approved}>{approved}</option>
-            <option value="Yes">Yes</option>
-          </select>
+          <button
+            onClick={updateApproval}
+            className="bg-blue-400 p-2 rounded text-white"
+          >
+            Approve
+          </button>
         )}
       </td>
     </tr>

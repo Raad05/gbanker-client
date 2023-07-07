@@ -1,6 +1,5 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import DropdownDetails from "../DropdownDetails/DropdownDetails";
-import TextDetails from "../TextDetails/TextDetails";
 
 const MemberAddition = () => {
   const dropdownDetails = [
@@ -36,10 +35,26 @@ const MemberAddition = () => {
     },
   ];
 
-  const textDetails = ["First name", "Last name", "Home Address"];
+  const [data, setData] = useState({});
+
+  const handleInput = (e) => {
+    const form = e.target;
+    const field = form.name;
+    const value = form.value;
+    const newData = { ...data };
+    newData[field] = value;
+    newData["approved"] = 0;
+
+    setData(newData);
+  };
+
+  const save = (e) => {
+    e.preventDefault();
+    console.log(data);
+  };
 
   return (
-    <div className="Member-addition container m-auto">
+    <form onSubmit={save} className="Member-addition container m-auto">
       <div className="text-md my-5 bg-success p-2 text-white shadow-md">
         <p>
           <Link to="/branch-manager-panel">Dashboard</Link> /{" "}
@@ -54,12 +69,154 @@ const MemberAddition = () => {
       </h3>
       <hr />
       <div className="grid grid-cols-3 gap-5 mt-5">
-        {textDetails.map((detail, idx) => (
-          <TextDetails key={idx} detail={detail}></TextDetails>
-        ))}
-        {dropdownDetails.map((detail, idx) => (
-          <DropdownDetails key={idx} info={detail}></DropdownDetails>
-        ))}
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-bold ml-1">
+              First Name
+              <span className="text-red-500">*</span>
+            </span>
+          </label>
+          <input
+            onChange={handleInput}
+            name="firstName"
+            type="text"
+            placeholder="Type here"
+            className="input border border-gray-300 rounded-sm"
+          />
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-bold ml-1">
+              Last Name
+              <span className="text-red-500">*</span>
+            </span>
+          </label>
+          <input
+            onChange={handleInput}
+            name="lastName"
+            type="text"
+            placeholder="Type here"
+            className="input border border-gray-300 rounded-sm"
+          />
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-bold ml-1">
+              Member ID
+              <span className="text-red-500">*</span>
+            </span>
+          </label>
+          <input
+            onChange={handleInput}
+            name="memberId"
+            type="text"
+            placeholder="Type here"
+            className="input border border-gray-300 rounded-sm"
+          />
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-bold ml-1">
+              Home Address
+              <span className="text-red-500">*</span>
+            </span>
+          </label>
+          <input
+            onChange={handleInput}
+            name="homeAddress"
+            type="text"
+            placeholder="Type here"
+            className="input border border-gray-300 rounded-sm"
+          />
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-bold ml-1">
+              Branch
+              <span className="text-red-500">*</span>
+            </span>
+          </label>
+          <select
+            onChange={handleInput}
+            name="branch"
+            className="select border border-gray-300 rounded-sm"
+          >
+            <option disabled selected>
+              Please select
+            </option>
+            {dropdownDetails[0].options.map((option, idx) => (
+              <option value={option} key={idx}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-bold ml-1">
+              Center
+              <span className="text-red-500">*</span>
+            </span>
+          </label>
+          <select
+            onChange={handleInput}
+            name="center"
+            className="select border border-gray-300 rounded-sm"
+          >
+            <option disabled selected>
+              Please select
+            </option>
+            {dropdownDetails[1].options.map((option, idx) => (
+              <option value={option} key={idx}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-bold ml-1">
+              Area
+              <span className="text-red-500">*</span>
+            </span>
+          </label>
+          <select
+            onChange={handleInput}
+            name="area"
+            className="select border border-gray-300 rounded-sm"
+          >
+            <option disabled selected>
+              Please select
+            </option>
+            {dropdownDetails[2].options.map((option, idx) => (
+              <option value={option} key={idx}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-bold ml-1">
+              Country
+              <span className="text-red-500">*</span>
+            </span>
+          </label>
+          <select
+            onChange={handleInput}
+            name="country"
+            className="select border border-gray-300 rounded-sm"
+          >
+            <option disabled selected>
+              Please select
+            </option>
+            {dropdownDetails[3].options.map((option, idx) => (
+              <option value={option} key={idx}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <h3 className="text-2xl my-5 bg-success p-5 text-white font-bold shadow-md">
         Document Upload
@@ -84,7 +241,7 @@ const MemberAddition = () => {
           Save
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 

@@ -105,6 +105,7 @@ const MemberApproval = () => {
       approved: "Yes",
     },
   ];
+
   let serial = 1;
 
   const [updatedStatus, setUpdatedStatus] = useState(null);
@@ -136,13 +137,14 @@ const MemberApproval = () => {
         <thead>
           <tr>
             <th className="bg-success text-white">SL</th>
-            <th className="bg-success text-white">Code</th>
-            <th className="bg-success text-white">Trx ID</th>
-            <th className="bg-success text-white">Centre</th>
-            <th className="bg-success text-white">Group</th>
-            <th className="bg-success text-white">Name</th>
-            <th className="bg-success text-white">Joining Date</th>
-            <th className="bg-success text-white">Status</th>
+            <th className="bg-success text-white">First Name</th>
+            <th className="bg-success text-white">Last Name</th>
+            <th className="bg-success text-white">Member ID</th>
+            <th className="bg-success text-white">Home Address</th>
+            <th className="bg-success text-white">Branch</th>
+            <th className="bg-success text-white">Center</th>
+            <th className="bg-success text-white">Area</th>
+            <th className="bg-success text-white">Country</th>
             <th className="bg-success text-white">Approved</th>
           </tr>
         </thead>
