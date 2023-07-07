@@ -3,9 +3,11 @@ import Main from "../layouts/Main/Main";
 import Login from "../Components/Dynamic/Login/Login";
 import MemberAddition from "../Components/Dynamic/MemberAddition/MemberAdddition";
 import MemberApproval from "../Components/Dynamic/MemberApproval/MemberApproval";
-import Dashboard from "../Components/Dynamic/Dashboard/Dashboard";
 import LoanProposal from "../Components/Dynamic/LoanProposal/LoanProposal";
 import LoanApproval from "../Components/Dynamic/LoanApproval/LoanApproval";
+import AdminDashboard from "../Components/Dynamic/Dashboard/AreaManagerDashboard";
+import AreaManagerDashboard from "../Components/Dynamic/Dashboard/AreaManagerDashboard";
+import BranchManagerDashboard from "../Components/Dynamic/Dashboard/BranchManagerDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -17,8 +19,8 @@ export const router = createBrowserRouter([
         element: <Login></Login>,
       },
       {
-        path: "/dashboard",
-        element: <Dashboard></Dashboard>,
+        path: "/admin-dashboard",
+        element: <AdminDashboard></AdminDashboard>,
       },
       {
         path: "/member-addition",
@@ -35,6 +37,14 @@ export const router = createBrowserRouter([
       {
         path: "/loan-approval",
         element: <LoanApproval></LoanApproval>,
+      },
+      {
+        path: "/area-manager-panel",
+        element: <AreaManagerDashboard></AreaManagerDashboard>,
+      },
+      {
+        path: "/branch-manager-panel",
+        element: <BranchManagerDashboard></BranchManagerDashboard>,
       },
     ],
   },

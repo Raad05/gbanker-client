@@ -5,12 +5,8 @@ const LoanApproval = () => {
     <div className="Loan-approval m-auto">
       <div className="text-md my-5 bg-success p-2 text-white shadow-md">
         <p>
-          <Link to="/dashboard">Dashboard</Link> /{" "}
-          <Link to="/member-addition" className="link">
-            Member Addition
-          </Link>{" "}
-          / <Link to="/member-approval">Member Approval</Link> /{" "}
-          <Link to="/loan-proposal">Loan Proposal</Link> /{" "}
+          <Link to="/area-manager-panel">Dashboard</Link> /{" "}
+          <Link to="/member-approval">Member Approval</Link> /{" "}
           <Link to="/loan-approval" className="link">
             Loan Approval
           </Link>
