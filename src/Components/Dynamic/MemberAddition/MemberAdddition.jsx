@@ -63,23 +63,26 @@ const MemberAddition = () => {
       },
       key: "0xeb24f49a29341e12f650e8043237815efb67bc27"
     };
+    try {
+      baseaxios.post("/namespaces/default/apis/MFISystem_2/invoke/addMember",
+        dataBlob
+      ).then((response) => {
+        if (response.status == 202) {
+          try {
 
-    baseaxios.post("/namespaces/default/apis/MFISystem_2/invoke/addMember",
-      dataBlob
-    ).then((response) => {
-      if (response) {
-        try {
+            nodeaxios.post("/member/createMember", data);
+            alert("Successfully created member");
+          } catch (err) {
+            console.log(err);
+            alert("Failed to create member");
+          }
 
-          nodeaxios.post("/member/createMember", data);
-          alert("Successfully created member");
-        } catch (err) {
-          console.log(err);
-          alert("Failed to create member");
         }
 
-      }
-    })
-
+      })
+    } catch (err) {
+      alert("Failed to create member");
+    }
 
     console.log(data);
   };

@@ -14,27 +14,30 @@ const AddedMemberDetails = ({ detail, serial, onStatusUpdate }) => {
       },
       key: "0xab896ed5d059c256402d4f2d77850c58e5bd8d14"
     };
+    try {
+      baseaxios.post("/namespaces/default/apis/MFISystem_2/invoke/approveMember",
+        dataBlob
+      ).then((response) => {
+        if (response.status == 202) {
+          try {
 
-    baseaxios.post("/namespaces/default/apis/MFISystem_2/invoke/approveMember",
-      dataBlob
-    ).then((response) => {
-      if (response) {
-        try {
+            nodeaxios.post("/member/approveMember", {
+              memberId: memberId
+            }).then((response) => {
+              alert("Approved!");
+            }
+            );
 
-          nodeaxios.post("/member/approveMember", {
-            memberId: memberId
-          }).then((response) => {
-            alert("Approved!");
+          } catch (err) {
+            console.log(err);
+            alert("Failed to create member");
           }
-          );
 
-        } catch (err) {
-          console.log(err);
-          alert("Failed to create member");
         }
-
-      }
-    })
+      })
+    } catch (err) {
+      alert("Failed to approve member");
+    }
   };
   useEffect(() => {
   }, []);

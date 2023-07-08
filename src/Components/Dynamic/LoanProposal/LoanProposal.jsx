@@ -52,7 +52,7 @@ const LoanProposal = () => {
       options: ["Trx-1", "Trx-2", "Trx-3", "Trx-4", "Trx-5"],
     },
   ];
-  const textLoanDetails = ["Account Name", "BSB", "Account Number"];
+  const textLoanDetails = ["Member Name", "BSB", "Member Number"];
 
   return (
     <div className="Loan-proposal container m-auto">
