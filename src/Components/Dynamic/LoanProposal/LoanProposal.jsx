@@ -1,6 +1,5 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import LoanDetails from "../LoanDetails/LoanDetails";
-import TextLoanDetails from "../TextLoanDetails/TextLoanDetails";
 
 const LoanProposal = () => {
   const loanDetails = [
@@ -52,10 +51,26 @@ const LoanProposal = () => {
       options: ["Trx-1", "Trx-2", "Trx-3", "Trx-4", "Trx-5"],
     },
   ];
-  const textLoanDetails = ["Member Name", "BSB", "Member Number"];
+
+  const [data, setData] = useState({});
+
+  const handleInput = (e) => {
+    const form = e.target;
+    const field = form.name;
+    const value = form.value;
+    const newData = { ...data };
+    newData[field] = value;
+
+    setData(newData);
+  };
+
+  const onSave = (e) => {
+    e.preventDefault();
+    console.log(data);
+  };
 
   return (
-    <div className="Loan-proposal container m-auto">
+    <form onSubmit={onSave} className="Loan-proposal container m-auto">
       <div className="text-md my-5 bg-success p-2 text-white shadow-md">
         <p>
           <Link to="/branch-manager-panel">Dashboard</Link> /{" "}
@@ -69,18 +84,152 @@ const LoanProposal = () => {
         Loan Proposal
       </h3>
       <div className="grid grid-cols-3 gap-5 mt-5">
-        {loanDetails.map((detail, idx) => (
-          <LoanDetails key={idx} detail={detail}></LoanDetails>
-        ))}
-        <TextLoanDetails detail="Loan Purpose"></TextLoanDetails>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-bold ml-1">
+              Office
+              <span className="text-red-500">*</span>
+            </span>
+          </label>
+          <select
+            onChange={handleInput}
+            name="office"
+            className="select border border-gray-300 rounded-sm"
+          >
+            <option disabled selected>
+              Please select
+            </option>
+            {loanDetails[0].options.map((option) => (
+              <option value={option} key={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-bold ml-1">
+              Center
+              <span className="text-red-500">*</span>
+            </span>
+          </label>
+          <select
+            onChange={handleInput}
+            name="center"
+            className="select border border-gray-300 rounded-sm"
+          >
+            <option disabled selected>
+              Please select
+            </option>
+            {loanDetails[1].options.map((option) => (
+              <option value={option} key={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-bold ml-1">
+              Investor
+              <span className="text-red-500">*</span>
+            </span>
+          </label>
+          <select
+            onChange={handleInput}
+            name="investor"
+            className="select border border-gray-300 rounded-sm"
+          >
+            <option disabled selected>
+              Please select
+            </option>
+            {loanDetails[2].options.map((option) => (
+              <option value={option} key={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-bold ml-1">
+              Loan Amount
+              <span className="text-red-500">*</span>
+            </span>
+          </label>
+          <input
+            onChange={handleInput}
+            name="loanAmount"
+            type="text"
+            placeholder="Type here"
+            className="input border border-gray-300 rounded-sm"
+          />
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-bold ml-1">
+              Loan ID
+              <span className="text-red-500">*</span>
+            </span>
+          </label>
+          <input
+            onChange={handleInput}
+            name="loanId"
+            type="text"
+            placeholder="Type here"
+            className="input border border-gray-300 rounded-sm"
+          />
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-bold ml-1">
+              Package ID
+              <span className="text-red-500">*</span>
+            </span>
+          </label>
+          <input
+            onChange={handleInput}
+            name="packageId"
+            type="text"
+            placeholder="Type here"
+            className="input border border-gray-300 rounded-sm"
+          />
+        </div>
       </div>
       <h3 className="text-2xl my-5 bg-success p-5 text-white font-bold shadow-md">
         Bank Account Info
       </h3>
       <div className="grid grid-cols-3 gap-5 mt-5">
-        {textLoanDetails.map((detail, idx) => (
-          <TextLoanDetails key={idx} detail={detail}></TextLoanDetails>
-        ))}
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-bold ml-1">
+              Member Name
+              <span className="text-red-500">*</span>
+            </span>
+          </label>
+          <input
+            onChange={handleInput}
+            name="memberName"
+            type="text"
+            placeholder="Type here"
+            className="input border border-gray-300 rounded-sm"
+          />
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-bold ml-1">
+              Member ID
+              <span className="text-red-500">*</span>
+            </span>
+          </label>
+          <input
+            onChange={handleInput}
+            name="memberId"
+            type="text"
+            placeholder="Type here"
+            className="input border border-gray-300 rounded-sm"
+          />
+        </div>
       </div>
       <div className="my-10 flex justify-center">
         <button
@@ -90,7 +239,7 @@ const LoanProposal = () => {
           Save
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 

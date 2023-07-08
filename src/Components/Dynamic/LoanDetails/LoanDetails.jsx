@@ -3,7 +3,7 @@ const LoanDetails = ({ detail }) => {
   const { label, options } = detail;
 
   return (
-    <div className="Loan-details form-control">
+    <div className="form-control">
       <label className="label">
         <span className="label-text font-bold ml-1">
           {label}
