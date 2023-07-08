@@ -1,8 +1,20 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+
+import nodeaxios from "../../../Axios/nodeaxios";
+import LoanData from "../LoanData/LoanData";
 
 const LoanApproval = () => {
+  const [loans, setLoans] = useState([]);
+
+
+  useEffect(() => {
+    nodeaxios.post("/loan/getLoans").then((response) => {
+      setLoans(response.data.loans)
+    })
+  }, []);
   return (
-    <div className="Loan-approval m-auto">
+    <div className="Loan-approval m-auto container">
       <div className="text-md my-5 bg-success p-2 text-white shadow-md">
         <p>
           <Link to="/area-manager-panel">Dashboard</Link> /{" "}
@@ -19,23 +31,19 @@ const LoanApproval = () => {
         {/* head */}
         <thead>
           <tr>
-            <th className="bg-success text-white">Office</th>
-            <th className="bg-success text-white">Centre</th>
-            <th className="bg-success text-white">Member Name</th>
-            <th className="bg-success text-white">Member ID</th>
             <th className="bg-success text-white">Loan Amount</th>
             <th className="bg-success text-white">Loan ID</th>
+            <th className="bg-success text-white">Member ID</th>
             <th className="bg-success text-white">Package ID</th>
+            <th className="bg-success text-white">Approved</th>
           </tr>
         </thead>
         <tbody>
-          <td className="bg-gray-200">0031</td>
-          <td className="bg-gray-200">0001</td>
-          <td className="bg-gray-200">003100300016 - Dan Khan</td>
-          <td className="bg-gray-200">01.01, General Loan Weekly</td>
-          <td className="bg-gray-200">Beauty items</td>
-          <td className="bg-gray-200">1000.00</td>
-          <td className="bg-gray-200">12.00</td>
+          {
+            loans.map((loan, idx) =>
+              <LoanData key={idx} loan={loan}></LoanData>
+            )
+          }
         </tbody>
       </table>
     </div>

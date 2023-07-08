@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
+import baseaxios from "../../../Axios/baseaxios";
+import nodeaxios from "../../../Axios/nodeaxios";
 const LoanProposal = () => {
   const loanDetails = [
     {
       id: "01",
-      label: "Office",
+      label: "Area",
       options: [
-        "Office-1",
-        "Office-2",
+        "Dhaka",
+        "Chittagong",
         "Office-3",
         "Office-4",
         "Office-5",
@@ -66,6 +67,45 @@ const LoanProposal = () => {
 
   const onSave = (e) => {
     e.preventDefault();
+    console.log(data);
+    const dataBlob = {
+      idempotencyKey: Date.now().toString(),
+      input: {
+        _loanAmount: data.loanAmount,
+        _loanId: data.loanId,
+        _memberId: data.memberId,
+        _packageId: data.packageId
+      },
+      key: "0xeb24f49a29341e12f650e8043237815efb67bc27"
+    };
+    try {
+      baseaxios.post("/namespaces/default/apis/LoanApprovalSystem_2.0/invoke/addLoan",
+        dataBlob
+      ).then((response) => {
+        if (response.status == 202) {
+          try {
+            const nodeData = {
+              loanAmount: data.loanAmount,
+              loanId: data.loanId,
+              memberId: data.memberId,
+              packageId: data.packageId
+            }
+
+            nodeaxios.post("/loan/createLoan", nodeData);
+            alert("Successfully created a new loan");
+          } catch (err) {
+            console.log(err);
+            alert("Failed to create loan");
+          }
+
+        }
+
+
+      })
+    } catch (err) {
+      alert("Failed to create loan");
+    }
+
     console.log(data);
   };
 

@@ -12,7 +12,7 @@ const AddedMemberDetails = ({ detail, serial, onStatusUpdate }) => {
       input: {
         _memberId: memberId,
       },
-      key: "0xab896ed5d059c256402d4f2d77850c58e5bd8d14"
+      key: "0xed5ebfeb16835e0cb279d772dc43f828d8de6865"
     };
     try {
       baseaxios.post("/namespaces/default/apis/MFISystem_2/invoke/approveMember",
@@ -30,7 +30,7 @@ const AddedMemberDetails = ({ detail, serial, onStatusUpdate }) => {
 
           } catch (err) {
             console.log(err);
-            alert("Failed to create member");
+            alert("Failed to approve member");
           }
 
         }
@@ -39,8 +39,7 @@ const AddedMemberDetails = ({ detail, serial, onStatusUpdate }) => {
       alert("Failed to approve member");
     }
   };
-  useEffect(() => {
-  }, []);
+
   return (
     <tr>
       <th>{serial}</th>
