@@ -61,7 +61,7 @@ const MemberAddition = () => {
         _memberId: data.memberId,
         _name: data.firstName + " " + data.lastName
       },
-      key: "0xeb24f49a29341e12f650e8043237815efb67bc27"
+      key: sessionStorage.getItem("address")
     };
     try {
       baseaxios.post("/namespaces/default/apis/MFISystem_2/invoke/addMember",

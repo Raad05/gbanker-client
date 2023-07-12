@@ -3,13 +3,31 @@ import mfiLogo from "../../../assets/MicFina.jpg";
 import { FaUserAlt } from "react-icons/fa";
 import { MdPassword } from "react-icons/md";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"
+import nodeaxios from '../../../Axios/nodeaxios';
 
 const Login = () => {
   const [data, setData] = useState({});
+  const navigate = useNavigate();
 
   const login = (e) => {
     e.preventDefault();
     console.log(data);
+    nodeaxios.post("/user/login", {
+      username: data.username,
+      password: data.password
+    }).then((response) => {
+      if (response.status === 200) {
+        sessionStorage.setItem("address", response.data.address);
+        sessionStorage.setItem("areaName", response.data.areaName);
+        sessionStorage.setItem("branchName", response.data.branchName);
+        if (response.data.type == "Area Manager") {
+          navigate('/area-manager-panel');
+        } else {
+          navigate('/branch-manager-panel');
+        }
+      }
+    })
   };
 
   const handleInput = (e) => {
@@ -34,9 +52,9 @@ const Login = () => {
         <input
           onBlur={handleInput}
           className="border rounded-r border-gray-200 my-1 p-2 w-full"
-          type="email"
-          name="email"
-          placeholder="Email Address"
+          type="text"
+          name="username"
+          placeholder="Username"
           required
         />
       </div>
@@ -60,11 +78,12 @@ const Login = () => {
         className="my-2 p-2 btn-success rounded text-white"
         type="submit"
       >
-        {data.email === "yamin.raad6109@gmail.com" ? (
+        Login
+        {/* {data.email === "yamin.raad6109@gmail.com" ? (
           <Link to="/area-manager-panel">Login</Link>
         ) : (
           <Link to="/branch-manager-panel">Login</Link>
-        )}
+        )} */}
       </button>
     </form>
   );

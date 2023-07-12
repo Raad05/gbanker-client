@@ -139,7 +139,7 @@ const MemberApproval = () => {
       input: {
         _memberId: memberId,
       },
-      key: "0xab896ed5d059c256402d4f2d77850c58e5bd8d14"
+      key: sessionStorage.getItem("address")
     };
     try {
       baseaxios.post("/namespaces/default/apis/MFISystem_2/query/isMemberApproved", dataBlob).then((response) => {

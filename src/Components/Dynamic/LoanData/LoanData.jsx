@@ -12,7 +12,7 @@ const LoanData = ({ loan }) => {
             input: {
                 _loanId: loanId,
             },
-            key: "0xab896ed5d059c256402d4f2d77850c58e5bd8d14"
+            key: sessionStorage.getItem("address")
         };
 
         baseaxios.post("/namespaces/default/apis/LoanApprovalSystem_2.0/invoke/approveLoan",

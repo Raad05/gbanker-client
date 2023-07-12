@@ -76,7 +76,7 @@ const LoanProposal = () => {
         _memberId: data.memberId,
         _packageId: data.packageId
       },
-      key: "0xeb24f49a29341e12f650e8043237815efb67bc27"
+      key: sessionStorage.getItem("address")
     };
     try {
       baseaxios.post("/namespaces/default/apis/LoanApprovalSystem_2.0/invoke/addLoan",

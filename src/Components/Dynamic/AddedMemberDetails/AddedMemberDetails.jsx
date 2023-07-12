@@ -12,7 +12,7 @@ const AddedMemberDetails = ({ detail, serial, onStatusUpdate }) => {
       input: {
         _memberId: memberId,
       },
-      key: "0xed5ebfeb16835e0cb279d772dc43f828d8de6865"
+      key: sessionStorage.getItem("address")
     };
     try {
       baseaxios.post("/namespaces/default/apis/MFISystem_2/invoke/approveMember",
